@@ -30,12 +30,9 @@ Auto autos[N] = {
     {true, {150, 160}, "UberXL", 22.0, "008ABC", 0.0}
 };
 
-//static InfoAuto *info;
-
 int viajesRealizados = 0;
 float gananciaTotal = 0.0;
 
-// Generar datos iniciales
 void inicializarAutos() {
     const char *tipos[] = {"UberPlanet", "UberXL", "UberBlack"};
     const float tarifas[] = {10.0, 15.0, 25.0};
@@ -48,8 +45,6 @@ void inicializarAutos() {
         sprintf(autos[i].placa, "%03dABC", i + 1);
         autos[i].ganancias = 0.0;
 
-
- // Agregar impresión para verificar la inicialización
         printf("Auto %d: Placa: %s, Tipo: %s, Tarifa: %.2f, Posición: (%d, %d)\n", 
                 i, autos[i].placa, autos[i].tipoUber, autos[i].tarifa, 
                 autos[i].posicion.x, autos[i].posicion.y);
@@ -58,7 +53,6 @@ void inicializarAutos() {
     }
 }
 
-// Calcular distancia entre dos posiciones
 float calcularDistancia(struct Posicion a, struct Posicion b) {
     return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
 }
@@ -107,22 +101,15 @@ InfoAuto *solicitarviaje_1_svc(Posicion *posicionPasajero, struct svc_req *req) 
 }
 
 void *terminarviaje_1_svc(TerminarViajeArgs *args, struct svc_req *req) {
-    
-static char dummy; // Dummy para devolver un puntero válido
-
-    // Usa los campos del struct args
+    static char dummy; 
     Posicion posicionFinal = args->posicionFinal;
     float costoViaje = args->costoViaje;
     char *placas = args->placas;
 
-    // Implementa la lógica para registrar el fin del viaje
     printf("Viaje terminado.\n");
-    printf("Posición final: (%d, %d)\n", posicionFinal.x, posicionFinal.y);
+    printf("Posicion final: (%d, %d)\n", posicionFinal.x, posicionFinal.y);
     printf("Costo del viaje: %.2f\n", costoViaje);
     printf("Placas: %s\n", placas);
-
-    // Devuelve un puntero válido
-
 
     for (int i = 0; i < N; i++) {
         if (strcmp(autos[i].placa, placas) == 0) {
@@ -134,22 +121,6 @@ static char dummy; // Dummy para devolver un puntero válido
             break;
         }
     }
- 
-
-
-
-/*		
-    for (int i = 0; i < N; i++) {
-        if (strcmp(autos[i].placa, *placas) == 0) {
-            autos[i].disponible = true;
-            autos[i].posicion = *posicionFinal;
-            autos[i].ganancias += *costoViaje;
-            viajesRealizados++;
-            gananciaTotal += *costoViaje;
-            break;
-        }
-    }*/
-    //return NULL;
     return &dummy;
 }
 
