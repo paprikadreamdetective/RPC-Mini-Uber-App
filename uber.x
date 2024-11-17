@@ -17,6 +17,16 @@ struct EstadoServicio {
 };
 
 
+struct Auto {
+    bool disponible;
+    Posicion posicion;
+    string tipoUber<10>;
+    float tarifa;
+    string placa<10>;
+    float ganancias;
+};
+
+
 struct TerminarViajeArgs {
     Posicion posicionFinal;
     float costoViaje;

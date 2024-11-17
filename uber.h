@@ -7,7 +7,7 @@
 #define _UBER_H_RPCGEN
 
 #include <rpc/rpc.h>
-#include <stdbool.h>
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,22 +35,22 @@ struct EstadoServicio {
 };
 typedef struct EstadoServicio EstadoServicio;
 
+struct Auto {
+	bool_t disponible;
+	Posicion posicion;
+	char *tipoUber;
+	float tarifa;
+	char *placa;
+	float ganancias;
+};
+typedef struct Auto Auto;
+
 struct TerminarViajeArgs {
 	Posicion posicionFinal;
 	float costoViaje;
 	char *placas;
 };
-	
 typedef struct TerminarViajeArgs TerminarViajeArgs;
-
-typedef struct {
-    bool disponible;
-    struct Posicion posicion;
-    char *tipoUber;
-    float tarifa;
-    char *placa;
-    float ganancias;
-} Auto;
 
 #define UBER_PROG 0x20000001
 #define UBER_VERS 1
@@ -86,12 +86,14 @@ extern int uber_prog_1_freeresult ();
 extern  bool_t xdr_Posicion (XDR *, Posicion*);
 extern  bool_t xdr_InfoAuto (XDR *, InfoAuto*);
 extern  bool_t xdr_EstadoServicio (XDR *, EstadoServicio*);
+extern  bool_t xdr_Auto (XDR *, Auto*);
 extern  bool_t xdr_TerminarViajeArgs (XDR *, TerminarViajeArgs*);
 
 #else /* K&R C */
 extern bool_t xdr_Posicion ();
 extern bool_t xdr_InfoAuto ();
 extern bool_t xdr_EstadoServicio ();
+extern bool_t xdr_Auto ();
 extern bool_t xdr_TerminarViajeArgs ();
 
 #endif /* K&R C */

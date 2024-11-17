@@ -48,6 +48,26 @@ xdr_EstadoServicio (XDR *xdrs, EstadoServicio *objp)
 }
 
 bool_t
+xdr_Auto (XDR *xdrs, Auto *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_bool (xdrs, &objp->disponible))
+		 return FALSE;
+	 if (!xdr_Posicion (xdrs, &objp->posicion))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->tipoUber, 10))
+		 return FALSE;
+	 if (!xdr_float (xdrs, &objp->tarifa))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->placa, 10))
+		 return FALSE;
+	 if (!xdr_float (xdrs, &objp->ganancias))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_TerminarViajeArgs (XDR *xdrs, TerminarViajeArgs *objp)
 {
 	register int32_t *buf;
